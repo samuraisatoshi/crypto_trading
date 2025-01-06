@@ -1,0 +1,93 @@
+2025-01-06 23:33:16 - INFO - Logging initialized
+2025-01-06 23:33:49 - INFO - Selected output type: Value
+2025-01-06 23:33:49 - INFO - Output value: Value
+2025-01-06 23:33:49 - INFO - Moving averages config: {'type': 'SMA', 'periods': [8, 21, 50, 80, 100], 'output': 'Value', 'slope': {'enabled': True, 'window': 5}}
+2025-01-06 23:33:53 - INFO - Selected output type: Value
+2025-01-06 23:33:53 - INFO - Output value: Value
+2025-01-06 23:33:53 - INFO - Moving averages config: {'type': 'EMA', 'periods': [8, 21, 50, 80, 100], 'output': 'Value', 'slope': {'enabled': True, 'window': 5}}
+2025-01-06 23:33:56 - INFO - Selected output type: Both
+2025-01-06 23:33:56 - INFO - Output value: Both
+2025-01-06 23:33:56 - INFO - Moving averages config: {'type': 'EMA', 'periods': [8, 21, 50, 80, 100], 'output': 'Both', 'slope': {'enabled': True, 'window': 5}}
+2025-01-06 23:33:59 - INFO - Selected output type: Both
+2025-01-06 23:33:59 - INFO - Output value: Both
+2025-01-06 23:33:59 - INFO - Moving averages config: {'type': 'EMA', 'periods': [8, 21, 50, 80, 100], 'output': 'Both', 'slope': {'enabled': True, 'window': 5}}
+2025-01-06 23:34:13 - INFO - Selected output type: Both
+2025-01-06 23:34:13 - INFO - Output value: Both
+2025-01-06 23:34:13 - INFO - Moving averages config: {'type': 'EMA', 'periods': [8, 21, 50, 80, 100], 'output': 'Both', 'slope': {'enabled': True, 'window': 5}}
+2025-01-06 23:34:13 - INFO - Processing data for SOLBTC (4h)
+2025-01-06 23:34:13 - INFO - Initial rows: 10356
+2025-01-06 23:34:13 - INFO - Initial columns: 8
+2025-01-06 23:34:13 - INFO - Starting data enrichment process
+2025-01-06 23:34:13 - INFO - Initial columns: 8
+2025-01-06 23:34:13 - INFO - Initial rows: 10356
+2025-01-06 23:34:13 - INFO - Handling NaN values
+2025-01-06 23:34:13 - INFO - Adding temporal features
+2025-01-06 23:34:14 - INFO - Applying enrichments
+2025-01-06 23:34:14 - INFO - Processing moving_averages
+2025-01-06 23:34:14 - INFO - Moving Averages Configuration:
+2025-01-06 23:34:14 - INFO - Type: EMA
+2025-01-06 23:34:14 - INFO - Periods: [8, 21, 50, 80, 100]
+2025-01-06 23:34:14 - INFO - Output: Both
+2025-01-06 23:34:14 - INFO - Slope enabled: True
+2025-01-06 23:34:14 - INFO - Slope window: 5
+2025-01-06 23:34:14 - INFO - 
+Processing period 8
+2025-01-06 23:34:14 - INFO - Calculating EMA_8
+2025-01-06 23:34:14 - INFO - Added EMA_8 value
+2025-01-06 23:34:14 - INFO - Calculating EMA_8 distance
+2025-01-06 23:34:14 - INFO - Added EMA_8_Distance
+2025-01-06 23:34:14 - INFO - Distance range: -25.90% to 23.55%
+2025-01-06 23:34:20 - INFO - Added EMA_8_Slope
+2025-01-06 23:34:20 - INFO - 
+Processing period 21
+2025-01-06 23:34:20 - INFO - Calculating EMA_21
+2025-01-06 23:34:20 - INFO - Added EMA_21 value
+2025-01-06 23:34:20 - INFO - Calculating EMA_21 distance
+2025-01-06 23:34:20 - INFO - Added EMA_21_Distance
+2025-01-06 23:34:20 - INFO - Distance range: -36.89% to 39.15%
+2025-01-06 23:34:27 - INFO - Added EMA_21_Slope
+2025-01-06 23:34:27 - INFO - 
+Processing period 50
+2025-01-06 23:34:27 - INFO - Calculating EMA_50
+2025-01-06 23:34:27 - INFO - Added EMA_50 value
+2025-01-06 23:34:27 - INFO - Calculating EMA_50 distance
+2025-01-06 23:34:27 - INFO - Added EMA_50_Distance
+2025-01-06 23:34:27 - INFO - Distance range: -42.86% to 55.93%
+2025-01-06 23:34:33 - INFO - Added EMA_50_Slope
+2025-01-06 23:34:33 - INFO - 
+Processing period 80
+2025-01-06 23:34:33 - INFO - Calculating EMA_80
+2025-01-06 23:34:33 - INFO - Added EMA_80 value
+2025-01-06 23:34:33 - INFO - Calculating EMA_80 distance
+2025-01-06 23:34:33 - INFO - Added EMA_80_Distance
+2025-01-06 23:34:33 - INFO - Distance range: -44.48% to 67.83%
+2025-01-06 23:34:40 - INFO - Added EMA_80_Slope
+2025-01-06 23:34:40 - INFO - 
+Processing period 100
+2025-01-06 23:34:40 - INFO - Calculating EMA_100
+2025-01-06 23:34:40 - INFO - Added EMA_100 value
+2025-01-06 23:34:40 - INFO - Calculating EMA_100 distance
+2025-01-06 23:34:40 - INFO - Added EMA_100_Distance
+2025-01-06 23:34:40 - INFO - Distance range: -45.04% to 78.62%
+2025-01-06 23:34:47 - INFO - Added EMA_100_Slope
+2025-01-06 23:34:47 - INFO - Final moving average columns:
+2025-01-06 23:34:47 - INFO - - EMA_100
+2025-01-06 23:34:47 - INFO - - EMA_100_Distance
+2025-01-06 23:34:47 - INFO - - EMA_100_Slope
+2025-01-06 23:34:47 - INFO - - EMA_21
+2025-01-06 23:34:47 - INFO - - EMA_21_Distance
+2025-01-06 23:34:47 - INFO - - EMA_21_Slope
+2025-01-06 23:34:47 - INFO - - EMA_50
+2025-01-06 23:34:47 - INFO - - EMA_50_Distance
+2025-01-06 23:34:47 - INFO - - EMA_50_Slope
+2025-01-06 23:34:47 - INFO - - EMA_8
+2025-01-06 23:34:47 - INFO - - EMA_80
+2025-01-06 23:34:47 - INFO - - EMA_80_Distance
+2025-01-06 23:34:47 - INFO - - EMA_80_Slope
+2025-01-06 23:34:47 - INFO - - EMA_8_Distance
+2025-01-06 23:34:47 - INFO - - EMA_8_Slope
+2025-01-06 23:34:47 - INFO - Enrichment complete
+2025-01-06 23:34:47 - INFO - Final columns: 26
+2025-01-06 23:34:47 - INFO - Final rows: 10356
+2025-01-06 23:34:47 - INFO - Added columns: 18
+2025-01-06 23:34:48 - INFO - Data saved to enriched/Enriched_SOLBTC_4h_2020-04-10_2024-12-31.csv

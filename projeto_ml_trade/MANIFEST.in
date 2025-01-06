@@ -1,0 +1,21 @@
+# Documentation
+include README.md
+include LICENSE
+include MANIFEST.in
+
+# Configuration
+include requirements.txt
+include setup.py
+include attribs.env.example
+
+# Package data
+recursive-include projeto_ml_trade/data *.csv *.parquet
+recursive-include projeto_ml_trade/app/static *
+recursive-include projeto_ml_trade/app/templates *
+
+# Exclude
+recursive-exclude * __pycache__
+recursive-exclude * *.py[cod]
+recursive-exclude * *.so
+recursive-exclude * .DS_Store
+recursive-exclude * Thumbs.db

@@ -1,0 +1,33 @@
+name: ml_trade_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12.7
+  - streamlit=1.40.1
+  - pandas=2.2.3
+  - numpy=1.26.4
+  - mplfinance=0.12.9b7
+  - pyarrow=17.0.0
+  - requests=2.32.3
+  - matplotlib=3.9.2
+  - plotly=5.24.1
+  - scikit-learn=1.5.2
+  - scipy=1.14.1
+  - typing-extensions=4.12.2
+  - pip=24.2
+  - pip:
+    - ta-lib==0.5.2
+    - python-binance==1.0.26
+    - python-dotenv==1.0.1
+    - ta==0.11.0
+    - black==24.10.0
+    - pytest==7.4.4
+    - pytest-cov==6.0.0
+    - tqdm>=4.62.0
+
+# Para criar o ambiente:
+# conda env create -f environment.yml
+#
+# Para atualizar o ambiente:
+# conda env update -f environment.yml --prune

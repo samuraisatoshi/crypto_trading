@@ -1,0 +1,173 @@
+# Guia de Desenvolvimento de Estratégias de Trading
+
+Este documento fornece instruções para desenvolver novas estratégias de trading para o framework.
+
+## 1. Estrutura Básica de Estratégia
+
+Toda estratégia deve herdar de `BaseStrategy` e implementar os métodos obrigatórios:
+
+```python
+from strategies.base import BaseStrategy
+
+class MinhaEstrategia(BaseStrategy):
+    def __init__(self):
+        super().__init__()
+        # Inicialize parâmetros da estratégia aqui
+        
+    def generate_signals(self, df: pd.DataFrame) -> List[Dict]:
+        """Gera sinais de trading.
+        
+        Returns:
+            Lista de sinais no formato:
+            {
+                'type': 'long' ou 'short',
+                'confidence': float (0-1),
+                'price': float,
+                'pattern': str (opcional)
+            }
+        """
+        pass
+        
+    def should_exit(self, df: pd.DataFrame, current_idx: int, position: Dict) -> bool:
+        """Determina se deve sair da posição."""
+        pass
+```
+
+## 2. Desenvolvimento de Detectores de Padrões
+
+Para criar um detector de padrão gráfico, herde de `BasePattern`:
+
+```python
+from strategies.chart_patterns.base_pattern import BasePattern
+
+class MeuPadrao(BasePattern):
+    def __init__(self):
+        super().__init__()
+        self.pattern_type = 'meu_padrao'
+        self.min_points = 3  # Mínimo de pontos necessários
+        
+    def detect_pattern(self, df: pd.DataFrame) -> List[Dict]:
+        """Detecta padrões nos dados.
+        
+        Returns:
+            Lista de padrões encontrados no formato:
+            {
+                'timestamp': datetime,
+                'price': float,
+                'points': List[Dict],  # Pontos que formam o padrão
+                'confidence': float    # 0-1
+            }
+        """
+        pass
+        
+    def calculate_confidence(self, df: pd.DataFrame, pattern: List[Dict]) -> float:
+        """Calcula score de confiança do padrão (0-1)."""
+        pass
+        
+    def get_pattern_direction(self, pattern: List[Dict]) -> str:
+        """Retorna 'bullish' ou 'bearish'."""
+        pass
+```
+
+## 3. Utilitários Disponíveis
+
+### 3.1 Indicadores Técnicos (utils.indicators)
+- RSI, MACD, Bollinger Bands, etc
+- Exemplo: `from utils.indicators import calculate_rsi`
+
+### 3.2 Análise de Mercado (utils.market_regime)
+- Identificação de tendências
+- Análise de momentum
+- Exemplo: `from utils.market_regime import identify_trend`
+
+### 3.3 Métricas de Volatilidade (utils.volatility_metrics)
+- ATR, Volatilidade histórica
+- Exemplo: `from utils.volatility_metrics import calculate_atr`
+
+### 3.4 Métricas de Liquidez (utils.liquidity_metrics)
+- Volume, Spread
+- Exemplo: `from utils.liquidity_metrics import analyze_volume`
+
+## 4. Melhores Práticas
+
+### 4.1 Detecção de Padrões
+- Use `_find_peaks()` e `_find_troughs()` para identificar pontos críticos
+- Valide a formação do padrão usando proporções e ângulos
+- Considere volume para confirmar padrões
+
+### 4.2 Cálculo de Confiança
+- Combine múltiplos fatores (ex: clareza do padrão, volume, tendência)
+- Normalize scores para range 0-1
+- Use pesos para diferentes fatores
+
+### 4.3 Gerenciamento de Risco
+- Implemente stop loss em `should_exit()`
+- Considere volatilidade para ajustar tamanhos de posição
+- Valide sinais com múltiplas timeframes
+
+### 4.4 Logging e Debug
+- Use `LoggingHelper` para debug:
+```python
+from utils.logging_helper import LoggingHelper
+LoggingHelper.debug("Mensagem de debug")
+```
+
+## 5. Exemplo de Implementação
+
+```python
+from strategies.base import BaseStrategy
+from utils.indicators import calculate_rsi
+from utils.market_regime import identify_trend
+from utils.logging_helper import LoggingHelper
+
+class RsiTrendStrategy(BaseStrategy):
+    def __init__(self, 
+                 rsi_period: int = 14,
+                 rsi_overbought: float = 70,
+                 rsi_oversold: float = 30):
+        super().__init__()
+        self.rsi_period = rsi_period
+        self.rsi_overbought = rsi_overbought
+        self.rsi_oversold = rsi_oversold
+        
+    def generate_signals(self, df: pd.DataFrame) -> List[Dict]:
+        signals = []
+        
+        # Calcular indicadores
+        df['rsi'] = calculate_rsi(df['close'], self.rsi_period)
+        trend = identify_trend(df)
+        
+        # Último candle
+        current_rsi = df['rsi'].iloc[-1]
+        current_price = df['close'].iloc[-1]
+        
+        # Gerar sinais
+        if trend == 'uptrend' and current_rsi < self.rsi_oversold:
+            signals.append({
+                'type': 'long',
+                'confidence': 0.8,
+                'price': current_price
+            })
+            LoggingHelper.log(f"Sinal LONG gerado - RSI: {current_rsi:.2f}")
+            
+        elif trend == 'downtrend' and current_rsi > self.rsi_overbought:
+            signals.append({
+                'type': 'short',
+                'confidence': 0.8,
+                'price': current_price
+            })
+            LoggingHelper.log(f"Sinal SHORT gerado - RSI: {current_rsi:.2f}")
+            
+        return signals
+        
+    def should_exit(self, df: pd.DataFrame, current_idx: int, position: Dict) -> bool:
+        # Calcular RSI atual
+        current_rsi = calculate_rsi(df['close'], self.rsi_period).iloc[current_idx]
+        
+        # Sair se RSI reverter
+        if position['type'] == 'long' and current_rsi > self.rsi_overbought:
+            return True
+        if position['type'] == 'short' and current_rsi < self.rsi_oversold:
+            return True
+            
+        return False
